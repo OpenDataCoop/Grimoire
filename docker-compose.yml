@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+      - ./container_deps:/app/deps
+    depends_on:
+      - db
+    env_file:
+      - .env
+    command: "/app/run.sh"
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" 

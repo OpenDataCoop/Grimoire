@@ -1,0 +1,20 @@
+<section class="phx-hero">
+  <h1>Grimoire</h1>
+  <%= if @current_user do %>
+    <h2>Welcome, <%= @current_user.name %>!</h2>
+    <div>
+      <img src={ @current_user.avatar_url } />
+    </div>
+    <%= link "Logout", to: Routes.auth_path(@conn, :delete), method: "delete", class: "button" %>
+    <br>
+  <% else %>
+    <ul style="list-style: none">
+      <li>
+        <a class="button" href={ Routes.auth_path(@conn, :request, "google") }>
+        <i class="fa fa-google"></i>
+        Sign in with Google
+        </a>
+      </li>
+    </ul>
+  <% end %>
+</section>
